@@ -1,4 +1,4 @@
-window.addEventListener('D', function(){
+window.addEventListener('load', function(){
 
     'use strict';
     let tab = document.querySelectorAll('.info-header-tab'),
@@ -32,4 +32,56 @@ window.addEventListener('D', function(){
             }
         }
     });
+
+    //time
+    let deadLine = '2019-08-15';
+    function getTimeRemaining(endtime) {
+        let t = Date.parse(endtime) - Date.parse(new Date()),
+            second = Math.floor(((t/1000) % 60)),
+            minutes = Math.floor((t/1000/60) %60),
+            hours = Math.floor((t/(1000*60*60)));
+        
+        return {
+            total : t,
+            hours : hours,
+            minutes : minutes,
+            second : second 
+        };
+    }
+
+    function setClock(id, endtime) {
+        let timer = document.getElementById(id),
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            second = timer.querySelector('.seconds'),
+            timeInterval = setInterval(updateClock, 1000);
+
+        function updateClock () {
+            let t = getTimeRemaining(endtime);
+            hours.textContent = t.hours;
+            minutes.textContent = t.minutes;
+            second.textContent = t.second;
+
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                second.textContent = '00';
+            }
+        
+            if (t.hours < 9 ) {
+                hours.textContent = '0' + t.hours ;
+            } 
+            if (t.minutes < 9 ) {
+                minutes.textContent = '0' + t.minutes;
+            }
+            if (t.second < 9 ) {
+                second.textContent = '0' + t.second;
+            }
+
+
+        }
+    }
+
+    setClock('timer', deadLine);
 });
