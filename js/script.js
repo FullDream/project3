@@ -34,7 +34,7 @@ window.addEventListener('load', function(){
     });
 
     //time
-    let deadLine = '2019-08-15';
+    let deadLine = '2019-08-16';
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
             second = Math.floor(((t/1000) % 60)),
@@ -68,20 +68,46 @@ window.addEventListener('load', function(){
                 minutes.textContent = '00';
                 second.textContent = '00';
             }
-        
-            if (t.hours < 9 ) {
-                hours.textContent = '0' + t.hours ;
-            } 
-            if (t.minutes < 9 ) {
-                minutes.textContent = '0' + t.minutes;
+            
+            function addZero(num) {
+                if(num < 9){
+                return'0' + num;
+                } else return num;
+               
             }
-            if (t.second < 9 ) {
-                second.textContent = '0' + t.second;
-            }
+            hours.textContent = addZero(t.hours);
+            minutes.textContent = addZero(t.minutes);
+            second.textContent = addZero(t.second);
+
+
 
 
         }
     }
 
     setClock('timer', deadLine);
+
+    //modal
+    let more = document.querySelector('.more'),
+        tabMore = document.querySelectorAll('.description-btn'),
+        overlay = document.querySelector('.overlay'),
+        close = this.document.querySelector('.popup-close');
+    
+    function moreAll(moreBtn) {
+        moreBtn.addEventListener('click', function() {
+            overlay.style.display = 'block';
+            this.classList.add('more-splash');
+            document.body.style.overflow = "hidden";
+        });
+        close.addEventListener('click', function() {
+            overlay.style.display = 'none';
+            moreBtn.classList.remove('more-splash');
+            document.body.style.overflow = "";
+        });
+    }
+    moreAll(more);
+    for ( let i = 0; i < tabMore.length; i++){
+        moreAll(tabMore[i]);
+    }
+    
 });
