@@ -20,7 +20,7 @@ window.addEventListener('load', function(){
         }
     }
 
-    info.addEventListener('click', function(event) {
+    info.addEventListener('click', (event) => {
         let target = event.target;
         if (target && target.classList.contains('info-header-tab')) {
             for (let i = 0; i < tab.length; i++) {
@@ -34,7 +34,7 @@ window.addEventListener('load', function(){
     });
 
     //time
-    let deadLine = '2019-08-16';
+    let deadLine = '2019-08-19';
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
             second = Math.floor(((t/1000) % 60)),
@@ -62,12 +62,7 @@ window.addEventListener('load', function(){
             minutes.textContent = t.minutes;
             second.textContent = t.second;
 
-            if (t.total <= 0) {
-                clearInterval(timeInterval);
-                hours.textContent = '00';
-                minutes.textContent = '00';
-                second.textContent = '00';
-            }
+
             
             function addZero(num) {
                 if(num < 9){
@@ -79,7 +74,12 @@ window.addEventListener('load', function(){
             minutes.textContent = addZero(t.minutes);
             second.textContent = addZero(t.second);
 
-
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                second.textContent = '00';
+            }
 
 
         }
@@ -94,12 +94,12 @@ window.addEventListener('load', function(){
         close = this.document.querySelector('.popup-close');
     
     function moreAll(moreBtn) {
-        moreBtn.addEventListener('click', function() {
+        moreBtn.addEventListener('click', () => {
             overlay.style.display = 'block';
             this.classList.add('more-splash');
             document.body.style.overflow = "hidden";
         });
-        close.addEventListener('click', function() {
+        close.addEventListener('click', () => {
             overlay.style.display = 'none';
             moreBtn.classList.remove('more-splash');
             document.body.style.overflow = "";
